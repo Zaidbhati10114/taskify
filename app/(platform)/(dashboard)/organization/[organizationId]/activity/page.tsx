@@ -1,0 +1,21 @@
+import { Separator } from "@/components/ui/separator";
+import { Info } from "../_components/info";
+import { Suspense } from "react";
+import { ActivityList } from "./components/activity-list";
+import { checkSubscription } from "@/lib/subscription";
+
+const ActivityPage = async () => {
+  const isPro = await checkSubscription();
+  return (
+    <div className="w-full">
+      <Info isPro={isPro} />
+      <Separator />
+      {/* ActivityLIst */}
+      <Suspense fallback={<ActivityList.Skeleton />}>
+        <ActivityList />
+      </Suspense>
+    </div>
+  );
+};
+
+export default ActivityPage;
